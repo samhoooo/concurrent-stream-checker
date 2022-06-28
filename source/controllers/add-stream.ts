@@ -36,6 +36,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (userStream.streamIds.length >= 3) {
         return res.status(400).json({
             message: "You have reach the streaming limit!",
+            userId,
+            existingStreams: userStream.streamIds,
         });
     } 
 
