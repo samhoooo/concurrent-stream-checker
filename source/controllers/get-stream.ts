@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Stream from '../models/stream';
 
 /**
- * Get current stream count of a user
+ * Get current stream of a user
  */
 export default async (req: Request, res: Response, next: NextFunction) => {
     let userId = req.query.userId?.toString();
@@ -25,9 +25,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     }
 
     return res.status(200).json({
-        message: {
-            userId: userStream.userId,
-            streamIds: userStream.streamIds,
-        }
+        message: "Streams successfully retrieved",
+        userId: userStream.userId,
+        streamIds: userStream.streamIds,
     });
 };

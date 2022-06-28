@@ -2,13 +2,26 @@
 
 A service in Node.js that exposes an API which can be consumed from any client. This service checks how many video streams a given user is watching and prevent a user from watching more than 3 video streams concurrently.
 
+
+## Usage
+Start nodeJS Servier
+```
+npm install
+npm run dev
+```
+
+Start mongoDB
+```
+mongod --dbpath <LOCAL_DB_PATH>
+```
+
 ## Endpoints
 * `GET /stream`: Gets current stream(s) of a user
 * `POST /stream`: Add a stream, invoke when user wants to watch a new content
 * `DELETE /stream`: Delete a stream, invoke when user terminate an existing stream
 * `null`: Default route, returns 404 as the endpoint requested does not exist
 
-### GET /stream
+## GET /stream
 Gets current stream(s) of a user
 
 Request
@@ -36,7 +49,7 @@ Example
     ]
 }`
 
-### POST /stream
+## POST /stream
 
 Add a stream, invoke when user wants to watch a new content
 
@@ -70,7 +83,7 @@ Example
     ]
 }`
 
-### DELETE /stream
+## DELETE /stream
 Delete a stream, invoke when user terminate an existing stream
 
 Request
@@ -101,15 +114,3 @@ Response
         "bd6a8acd-f31f-40ec-b147-3e4c2465e55d"
     ]
 }`
-
-## Usage
-Start nodeJS Servier
-```
-npm install
-npm run dev
-```
-
-Start mongoDB
-```
-mongod --dbpath <LOCAL_DB_PATH>
-```
