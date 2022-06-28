@@ -22,6 +22,9 @@ mongod --dbpath <LOCAL_DB_PATH>
 ## Scalability strategy
 Horizontally scale multiple nodeJS instances. Add a balancer (PM2) and distribute the incoming connections across all the processes.
 
+## DEMO
+You can try out on: http://18.163.181.175:3000/
+
 ## Endpoints
 * `GET /stream`: Gets current stream(s) of a user
 * `POST /stream`: Add a stream, invoke when user wants to watch a new content
