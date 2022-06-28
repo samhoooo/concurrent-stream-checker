@@ -42,7 +42,7 @@ router.use((req, res, next) => {
 
 /** MongoDB Connection */ 
 if (process.env.MONGO_URI != null) {
-    mongoose.connect(process.env.MONGO_URI);
+    mongoose.connect(`${process.env.MONGO_URI}/${process.env.DB_NAME}`);
     (
         // initialize and reset Stream table, create a user with userId = 1
         async () => {
