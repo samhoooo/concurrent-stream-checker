@@ -46,12 +46,21 @@ mongoose.connect('mongodb://localhost:27017/dazn');
     async () => {
         try {
             await Stream.deleteMany({});
-            const stream = await Stream.create({
-                userId: 1,
-                streamIds: [],
-            });
-            stream.save();
-            console.log(stream);
+            const streams = await Stream.insertMany([
+                {
+                    userId: 1,
+                    streamIds: [],
+                },
+                {
+                    userId: 2,
+                    streamIds: [],
+                },
+                {
+                    userId: 3,
+                    streamIds: [],
+                }
+            ]);
+            console.log(streams);
         } catch (err) {
             console.error(err);
         }
