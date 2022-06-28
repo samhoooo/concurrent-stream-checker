@@ -37,10 +37,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     if (streamId != null) {
         // remove the stream with stream ID
-        await Stream.deleteOne({
-            userId,
-            streamId,
-        });
+        const index = userStream.streamIds.findIndex((item => item === streamId));
+        if (index > -1) {
+            userStream.streamIds.splice(index, 1);
+            userStream.save();
+        }
     } else {
         // remove the latest stream
         userStream.streamIds.pop();
