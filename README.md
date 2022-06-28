@@ -2,9 +2,13 @@
 
 A service in Node.js that exposes an API which can be consumed from any client. This service checks how many video streams a given user is watching and prevent a user from watching more than 3 video streams concurrently.
 
+## installation instructions
+Edit .env
+```
+MONGO_URI=<MONGODB_URL>
+```
 
-## Usage
-Start nodeJS Servier
+Start nodeJS Server
 ```
 npm install
 npm run dev
@@ -14,6 +18,9 @@ Start mongoDB
 ```
 mongod --dbpath <LOCAL_DB_PATH>
 ```
+
+## Scalability strategy
+Horizontally scale multiple nodeJS instances. Add a balancer (PM2) and distribute the incoming connections across all the processes.
 
 ## Endpoints
 * `GET /stream`: Gets current stream(s) of a user

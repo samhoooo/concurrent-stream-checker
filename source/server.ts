@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import routes from './routes/stream';
 import Stream from './models/stream';
 import mongoose from 'mongoose';
+require('dotenv').config();
 
 const router: Express = express();
 
@@ -40,32 +41,34 @@ router.use((req, res, next) => {
 });
 
 /** MongoDB Connection */ 
-mongoose.connect('mongodb://localhost:27017/dazn');
-(
-    // initialize and reset Stream table, create a user with userId = 1
-    async () => {
-        try {
-            await Stream.deleteMany({});
-            const streams = await Stream.insertMany([
-                {
-                    userId: 1,
-                    streamIds: [],
-                },
-                {
-                    userId: 2,
-                    streamIds: [],
-                },
-                {
-                    userId: 3,
-                    streamIds: [],
-                }
-            ]);
-            console.log(streams);
-        } catch (err) {
-            console.error(err);
+if (process.env.MONGO_URI != null) {
+    mongoose.connect(process.env.MONGO_URI);
+    (
+        // initialize and reset Stream table, create a user with userId = 1
+        async () => {
+            try {
+                await Stream.deleteMany({});
+                const streams = await Stream.insertMany([
+                    {
+                        userId: 1,
+                        streamIds: [],
+                    },
+                    {
+                        userId: 2,
+                        streamIds: [],
+                    },
+                    {
+                        userId: 3,
+                        streamIds: [],
+                    }
+                ]);
+                console.log(streams);
+            } catch (err) {
+                console.error(err);
+            }
         }
-    }
-)();
+    )();
+}
 
 /** Server */
 const httpServer = http.createServer(router);
