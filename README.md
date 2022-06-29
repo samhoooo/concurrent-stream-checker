@@ -20,7 +20,25 @@ mongod --dbpath <LOCAL_DB_PATH>
 ```
 
 ## Scalability strategy
-Horizontally scale multiple nodeJS instances. Add a balancer (PM2) and distribute the incoming connections across all the processes.
+
+Message Queue:
+1. Use RabbitMQ to limit API request rate. Set up multiple exchanges with multiple queues based on geolocation.
+2. Horizontally scale multiple nodeJS instances. Each MQ should have several nodeJS instances as consumer.
+
+MongoDB:
+1. Shard the collection based on user location. Set up shard key to user region.
+2. Change the schema design:
+```
+const streamSchema = new mongoose.Schema({
+  	userId: String,
+  	sessionId: String,
+  	isValidSession: Boolean, 
+  	dateCreated: Date,
+  	dateTerminated: Date
+});
+```
+Count the number of valid sessions (isValidSession = true) to validate if the user can watch a new video stream.
+3. Indexing on userId and sessionId
 
 ## DEMO
 You can try out on: http://18.163.181.175:3000/
