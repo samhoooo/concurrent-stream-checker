@@ -21,6 +21,8 @@ mongod --dbpath <LOCAL_DB_PATH>
 
 ## Scalability strategy
 
+![alt text](https://raw.githubusercontent.com/samhoooo/concurrent-stream-checker/main/architecture.png)
+
 Message Queue:
 1. Use RabbitMQ to limit API request rate. Set up multiple exchanges with multiple queues based on geolocation.
 2. Horizontally scale multiple nodeJS instances. Each MQ should have several nodeJS instances as consumer.
